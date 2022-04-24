@@ -1,0 +1,9 @@
+{
+    "uuid": "reboot-menu@supershadoe.me",
+    "name": "Reboot Menu",
+    "description": "An extension to display all systemd-boot entries in GNOME panel popup",
+    "shell-version": [ "40", "41", "42" ],
+    "url": "https://github.com/supershadoe/gnome-shell-extension-reboot-menu",
+    "version": 1,
+    "session-modes": [ "user", "gdm" ]
+}
