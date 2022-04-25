@@ -1,26 +1,44 @@
 # Reboot Menu
-A GNOME shell extension to show systemd-boot boot entries in a menu to quickly reboot to another boot entry.
-Useful for people who like to hide their boot menu and hate to spam Escape to make the computer show it.
+A GNOME shell extension to show systemd-boot boot entries in GNOME's Aggregate Menu (the quick settings menu where Settings, lock, Power off are present).
 
-Right now, the extension shows a zenity menu comprising of all the active boot entries available in systemd-boot.
-On pressing OK in zenity, the extension reboots to the selected boot entry using `systemctl`.
+Useful for people who like to hide their boot menu and hate to spam Escape to make the computer show it.
+Also useful for people who can't hold Alt on Reboot dialog to go to boot menu due to stuff like no keyboard.
+And for people who are lazy af.
+
+When the extension is enabled, it removes the usual Restart button from Power Off menu and creates a new Restart menu populated with all boot entries.
+On pressing on any of the boot entries, it executes a D-Bus call to set oneshot boot entry and activates the restart process(Shows restart dialog).
+
+On disabling the extension, it undoes all the changes and adds the usual Restart button back to Power Off menu.
+
+## Notes
+- Right now, the D-Bus API for boot menu doesn't provide the casual title of the boot entry and provides only the identifiers(like 'arch.conf' or 'auto-windows').
+Maybe, in the future, casual titles can be supported with the upcoming systemd update which brings json support to bootctl by which we can get text from bootctl
+in a easily parsable manner. (Using sed to process raw bootctl output is pain and unelegant)
+
+People who definitely want their casual titles and want to avoid the boot entry identifiers at all costs can use version 1 which shows a Zenity window with boot
+entry and identifier. Take note of the fact that it executes a shell script which shows a zenity window which doesn't block the whole shell interface and not as
+elegant as the current implementation.
+
+- Technically, it's possible to use it with non-systemd-boot boot loaders which support the D-Bus API and implement the [boot loader specification](https://systemd.io/BOOT_LOADER_SPECIFICATION) made by systemd but I don't use other boot loaders currently nor have the time to test on them. So, if you want to use it for this
+purpose, you are on your own.
 
 ## Compatibility and support
-This extension is compatible with gnome-shell versions 40, 41 and 42 for sure and is developed on GNOME 42.
+This extension is compatible with gnome-shell versions 41 and 42 for sure and is developed on GNOME 42.
+No official support will be provided for other GNOME versions.
 
-It is probably compatible with 3.38 as that's when GNOME ditched the combined Power off menu and added a separate `Restart...` menu item to Power Off menu
-(based on the commit history of gnome-shell's source code).
-Users are free to edit the `metadata.json` file to add 3.38 to shell-version to make it run on GNOME 3.38 but **no support will be provided for this**.
-Compatibility with GNOME versions less than 40 is untested.
+Two things which break support for older GNOME versions
+- Usage of TextDecoder to interpret XML file instead of ByteArray.toString() [only > GNOME 41]
+- Restart item was added to Power Off menu instead of containing in endSessionDialog used for Power Off in GNOME 3.38
+
+So, I guess if you want to support those 2 versions you can edit and test them. Here be dragons, though.
 
 ## How to use
 - Clone this repo to ~/.local/share/gnome-shell/extensions/ and rename the folder to `reboot-menu@supershadoe.me`.
 - Restart your GNOME shell by logging out and logging in again (if using Wayland) or press Alt+F2 and type `r` to restart GNOME shell (if using X11).
 - Enable the extension in GNOME extensions app.
 
-## License
-This code is licensed under two different licenses - The extension code is licensed under GNU General Public License version 3.0
-as the code of the extension is a derivative work of [gnome-shell](https://gitlab.gnome.org/GNOME/gnome-shell)
-and the reboot-menu shell script is licensed under Apache License Version 2.0.
+## Contributing
+Any bugfixes/issues/features can be reported via GitHub issues and PRs are also welcome.
 
-This may change in the future.
+## License
+This program is licensed under GNU General Public License version 3.0 as it is a derivative work of [gnome-shell](https://gitlab.gnome.org/GNOME/gnome-shell).

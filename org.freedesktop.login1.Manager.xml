@@ -1,0 +1,34 @@
+<node>
+  <interface name="org.freedesktop.login1.Manager">
+    <property name="RebootToFirmwareSetup" type="b" access="read">
+      <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
+    </property>
+    <property name="RebootToBootLoaderMenu" type="t" access="read">
+      <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
+    </property>
+    <property name="RebootToBootLoaderEntry" type="s" access="read">
+      <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
+    </property>
+    <property name="BootLoaderEntries" type="as" access="read">
+      <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="const"/>
+    </property>
+    <method name="CanRebootToFirmwareSetup">
+      <arg type="s" name="result" direction="out"/>
+    </method>
+    <method name="SetRebootToFirmwareSetup">
+      <arg type="b" name="enable" direction="in"/>
+    </method>
+    <method name="CanRebootToBootLoaderMenu">
+      <arg type="s" name="result" direction="out"/>
+    </method>
+    <method name="SetRebootToBootLoaderMenu">
+      <arg type="t" name="timeout" direction="in"/>
+    </method>
+    <method name="CanRebootToBootLoaderEntry">
+      <arg type="s" name="result" direction="out"/>
+    </method>
+    <method name="SetRebootToBootLoaderEntry">
+      <arg type="s" name="boot_loader_entry" direction="in"/>
+    </method>
+  </interface>
+</node>
