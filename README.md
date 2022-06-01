@@ -1,4 +1,10 @@
 # Reboot Menu
+
+> [Archived]
+>
+> This extension works as it is but I don't have the motive to work on this anymore(more so due to less time) nor do I have the use as I don't dual boot
+> much nowadays and Alt+restart is fine for once in a blue moon use.
+
 A GNOME shell extension to show systemd-boot boot entries in GNOME's Aggregate Menu (the quick settings menu where Settings, lock, Power off are present).
 
 Useful for people who like to hide their boot menu and hate to spam Escape to make the computer show it.
